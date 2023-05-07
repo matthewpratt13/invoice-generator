@@ -75,25 +75,17 @@ impl HoursWindow {
 
     fn setup_row_headers(&self) {
         let grid: gtk::Grid = self.grid();
-
         let headers_labels = gio::ListStore::new(gtk::Label::static_type());
 
-        let mut i: usize = 0;
-
-        while i < 9 {
-            let col = i as i32;
-            let row = 0;
-
+        for y in 1..=8 {
             let child: Value = grid
-                .child_at(col, row)
+                .child_at(y, 0)
                 .expect("no child at that position in `self.grid()` (gtk::Grid)")
                 .to_value();
 
             if let Ok(c) = child.get::<gtk::Label>() {
                 headers_labels.append(&c);
             }
-
-            i += 1;
         }
 
         let row_headers = RowHeaders::new(headers_labels);
@@ -104,25 +96,17 @@ impl HoursWindow {
         let grid: gtk::Grid = self.grid();
         let mut hours_rows: Vec<HoursRow> = Vec::new();
 
-        let mut x: usize = 1;
-
-        while x < 8 {
+        for x in 1..=7 {
             let hours_entries = gio::ListStore::new(gtk::Entry::static_type());
+            let mut weekday_label = gtk::Label::new(Some(""));
 
-            let mut weekday_label = gtk::Label::new(None);
-
-            let row_i = x as i32;
-            let mut y: usize = 0;
-
-            while y < 9 {
-                let col_i = y as i32;
-
+            for y in 1..=8 {
                 let child: Value = grid
-                    .child_at(col_i, row_i)
+                    .child_at(y, x)
                     .expect("no child (Widget) at that position in `self.grid()` (Grid)")
                     .to_value();
 
-                if col_i == 0 {
+                if y == 0 {
                     if let Ok(c) = child.get::<gtk::Label>() {
                         weekday_label = c;
                     }
@@ -131,14 +115,10 @@ impl HoursWindow {
                 if let Ok(c) = child.get::<gtk::Entry>() {
                     hours_entries.append(&c);
                 }
-
-                y += 1;
             }
 
             let row = HoursRow::new(weekday_label, hours_entries.clone());
             hours_rows.push(row);
-
-            x += 1;
         }
 
         let rows = Rows::new(hours_rows);
@@ -172,7 +152,7 @@ impl HoursWindow {
 
                         window.set_hours_file(path.clone());
 
-                        let mut wtr = csv::Writer::from_path(path).expect("unable to create `wtr` (Writer) from `path` (PathBuf) at `file` (gio::File) from 'Save Hours' dialog (FileDalog) for `self` (HoursWindow)");
+                        let mut wtr = csv::Writer::from_path(path).expect("unable to create `wtr` (Writer) from `path` (PathBuf) at `file` (gio::File) from 'Save Hours' dialog (FileDialog) for `self` (HoursWindow)");
 
                         wtr.serialize(schedule.row_headers).expect("unable to serialize `row_headers`");
                         wtr.serialize(schedule.mon_hours).expect("unable to serialize `mon_hours`");
@@ -202,18 +182,14 @@ impl HoursWindow {
         let mut required_entries: Vec<bool> = Vec::new();
 
         for x in 1..=7 {
-            let row_i: i32 = x;
-
             for y in 3..=4 {
-                let col_i: i32 = y;
-
                 let missing_entry_msg: String = format!(
                     "missing child (gtk::Entry) at row {} col {} in `self.grid` (Grid)",
-                    row_i, col_i
+                    x, y
                 );
 
                 let entry: Value = grid
-                    .child_at(col_i, row_i)
+                    .child_at(y, x)
                     .expect(missing_entry_msg.as_str())
                     .to_value();
 
@@ -241,18 +217,14 @@ impl HoursWindow {
         let mut correct_types: Vec<bool> = Vec::new();
 
         for x in 1..=7 {
-            let row_i: i32 = x;
-
             for y in 1..8 {
-                let col_i: i32 = y;
-
                 let missing_entry_msg: String = format!(
                     "missing child (Entry) at row {} col {} in `self.grid` (Grid)",
-                    row_i, col_i
+                    x, y
                 );
 
                 let entry: Value = grid
-                    .child_at(col_i, row_i)
+                    .child_at(y, x)
                     .expect(missing_entry_msg.as_str())
                     .to_value();
 
