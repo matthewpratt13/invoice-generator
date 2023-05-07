@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="MainWindow" parent="AdwApplicationWindow">
+    <property name="default-width">750</property>
+    <property name="default-height">750</property>
+    <property name="title"></property>
+    <property name="content">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="vexpand">1</property>
+        <property name="margin-bottom">20</property>
+        <property name="margin-start">20</property>
+        <property name="margin-end">20</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="AdwHeaderBar"></object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="label">Invoice Generator</property>
+            <style>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="main_window_subtitle_label">
+            <property name="margin-start">40</property>
+            <property name="margin-end">40</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+            <style>
+              <class name="dim-label"/>
+              <class name="title-3"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="halign">center</property>
+            <property name="margin-top">80</property>
+            <property name="spacing">80</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <property name="halign">center</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkButton" id="open_records_button">
+                    <property name="label">Open Records</property>
+                    <property name="halign">center</property>
+                    <property name="tooltip-text">Open records Excel file</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="records_file_entry">
+                    <property name="editable">False</property>
+                    <property name="can-focus">False</property>
+                    <property name="width-chars">50</property>
+                    <property name="secondary-icon-name">edit-clear-all-symbolic</property>
+                    <property name="secondary-icon-tooltip-text">Clear</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="halign">center</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkButton" id="enter_hours_button">
+                    <property name="label">Enter Hours</property>
+                    <property name="halign">center</property>
+                    <property name="tooltip-text">Enter hours in new window</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="or_hours_label">
+                    <property name="justify">center</property>
+                    <property name="wrap">True</property>
+                    <property name="label">or</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">horizontal</property>
+                    <property name="halign">center</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <property name="halign">center</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkButton" id="open_hours_button">
+                            <property name="label">Open Hours</property>
+                            <property name="halign">center</property>
+                            <property name="tooltip-text">Open hours CSV file</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="hours_file_entry">
+                            <property name="editable">False</property>
+                            <property name="can-focus">False</property>
+                            <property name="width-chars">50</property>
+                            <property name="secondary-icon-name">edit-clear-all-symbolic</property>
+                            <property name="secondary-icon-tooltip-text">Clear</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="valign">baseline</property>
+            <property name="margin-top">80</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <child>
+              <object class="GtkButton" id="generate_entries_button">
+                <property name="label">Generate</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

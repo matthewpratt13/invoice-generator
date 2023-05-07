@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="HoursWindow" parent="AdwWindow">
+    <property name="default-width">1200</property>
+    <property name="default-height">750</property>
+    <property name="title" translatable="yes">Save Hours</property>
+    <property name="modal">True</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="deletable">False</property>
+    <property name="content">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="vexpand">1</property>
+        <property name="margin-bottom">20</property>
+        <property name="margin-start">20</property>
+        <property name="margin-end">20</property>
+        <property name="margin-bottom">20</property>
+        <property name="spacing">20</property>
+        <child>
+          <object class="AdwHeaderBar">
+            <child type="start">
+              <object class="GtkButton" id="back_button">
+                <property name="icon-name">go-previous-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Back</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="hours_window_subtitle_label">
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+            <style>
+              <class name="title-3"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid">
+            <property name="hexpand">1</property>
+            <property name="margin-top">20</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <property name="column-spacing">15</property>
+            <property name="column-homogeneous">true</property>
+            <property name="row-spacing">20</property>
+            <child>
+              <object class="GtkLabel" id="head_weekday_label">
+                <property name="justify">center</property>
+                <property name="label">Weekday</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_peak_start_label">
+                <property name="justify">center</property>
+                <property name="label">Peak Start</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_peak_end_label">
+                <property name="justify">center</property>
+                <property name="label">Peak End</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_off_peak_start_label">
+                <property name="justify">center</property>
+                <property name="label">Off-peak Start</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_off_peak_end_label">
+                <property name="justify">center</property>
+                <property name="label">Off-peak End</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_secondary_peak_start_label">
+                <property name="justify">center</property>
+                <property name="label">Secondary Peak Start</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_secondary_peak_end_label">
+                <property name="justify">center</property>
+                <property name="label">Secondary Peak End</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_secondary_off_peak_start_label">
+                <property name="justify">center</property>
+                <property name="label">Secondary Off-peak Start</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="head_secondary_off_peak_end_label">
+                <property name="justify">center</property>
+                <property name="label">Secondary Off-peak End</property>
+                <property name="wrap">True</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">0</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="mon_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Mon</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="mon_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="tue_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Tue</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="tue_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">2</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="wed_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Wed</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_off_peak_end_entry">
+                <property name="placeholder-text">(required)</property>
+                <property name="max-length">2</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="wed_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="thu_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Thu</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="thu_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">4</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="fri_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Fri</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="fri_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">5</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="sat_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Sat</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sat_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">6</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="sun_weekday_string_label">
+                <property name="justify">center</property>
+                <property name="label">Sun</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">3</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <property name="placeholder-text">(required)</property>
+                <signal name="changed" handler="handle_required_entries" swapped="true"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_secondary_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">5</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_secondary_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">6</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_secondary_off_peak_start_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">7</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="sun_secondary_off_peak_end_entry">
+                <property name="max-length">2</property>
+                <layout>
+                  <property name="column">8</property>
+                  <property name="row">7</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="valign">baseline</property>
+            <property name="margin-top">20</property>
+            <property name="margin-bottom">10</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <child>
+              <object class="GtkButton" id="save_hours_button">
+                <property name="label">Save</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>
