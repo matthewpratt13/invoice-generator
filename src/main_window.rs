@@ -28,8 +28,8 @@ enum EntryType {
 impl std::fmt::Display for EntryType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            EntryType::Records => write!(f, "{}", self),
-            EntryType::Hours => write!(f, "{}", self),
+            EntryType::Records => write!(f, "Records"),
+            EntryType::Hours => write!(f, "Hours"),
         }
     }
 }
