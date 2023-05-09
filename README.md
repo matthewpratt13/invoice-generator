@@ -32,7 +32,21 @@ This invoice generator is a binary application that calculates power consumption
 
     1. Go to settings -> Search and open `Advanced system settings` -> Click on `Environment variables`
 
-   2. Select `Path` -> Click on `Edit` -> Add `C:\gtk-build\gtk\x64\release\bin`
+    2. Select `Path` -> Click on `Edit` -> Add `C:\gtk-build\gtk\x64\release\bin`
+
+3. Download and install Libadwaita.
+
+#### MacOSX
+
+```bash
+brew install libadwaita
+```
+
+#### Windows
+
+```bash
+gvsbuild build libadwaita librsvg
+```
 
 ## Compilation
 
