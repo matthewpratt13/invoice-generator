@@ -10,6 +10,7 @@ use gtk::{gio, glib};
 
 use main_window::MainWindow;
 
+// feel free to change – name must reflect in `resources/resources.gresource.xml` prefix
 const APP_ID: &'static str = "org.synthesis_power.invoice_generator";
 
 fn main() -> glib::ExitCode {
