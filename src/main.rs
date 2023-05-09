@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 mod data; // import and expose back end
 
 mod hours_row;
