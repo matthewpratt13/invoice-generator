@@ -2,53 +2,15 @@
 
 This invoice generator is a binary application that calculates power consumption based on inverter yield and export data. The front end was made using the GTK-RS library.
 
-## Installation
+## Installation (for MacOSX)
 
 1. [Download Rustup and install Rust](https://www.rust-lang.org/tools/install) to compile the application.
 
-2. Download and build the GTK 4 library.
+2. Download and build the GTK4 library.
 
-#### MacOSX (requires [homebrew](https://brew.sh/))
-  
    ```bash
-    brew install gtk4
+    brew install gtk4 libadwaita
    ```
-
-#### Windows
-
-- Set the default Rust toolchain:
-  
-   ```bash
-    rustup default stable-msvc
-   ```
-
-- Follow the [instructions in the gsv-build](https://github.com/wingtk/gvsbuild#development-environment) docs to build GTK 4, using the GTK 4 build:
-
-    ```bash
-    gvsbuild build gtk4
-    ```
-
-- Update your `Path` environment variable to include GTK 4 libraries:
-
-    1. Go to settings -> Search and open `Advanced system settings` -> Click on `Environment variables`
-
-    2. Select `Path` -> Click on `Edit` -> Add `C:\gtk-build\gtk\x64\release\bin`
-
-3. Download and install Libadwaita.
-
-#### MacOSX
-
-```bash
-brew install libadwaita
-```
-
-#### Windows
-
-```bash
-gvsbuild build libadwaita librsvg
-```
-
-## Compilation
 
 - Change the current directory to the project directory (from the command line) and build the app for the host platform:
 
