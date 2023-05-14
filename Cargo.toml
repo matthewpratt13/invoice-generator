@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "An invoice generator app that calculates consumption from inverter yield and export data"
 license = "GPL-3.0-or-later"
-author = "Matthew Pratt"
+authors = ["Matthew Pratt"]
 
 [dependencies]
 adw = { package = "libadwaita", version = "0.4", features = ["v1_2"] }
