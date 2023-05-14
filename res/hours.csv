@@ -1,0 +1,8 @@
+Weekday,Peak Start,Peak End,Off-peak Start,Off-peak End,Secondary Peak Start,Secondary Peak End,Secondary Off-peak Start,Secondary Off-peak End
+Mon,7,10,22,6,18,20,,
+Tue,7,10,22,6,18,20,,
+Wed,7,10,22,6,18,20,,
+Thu,7,10,22,6,18,20,,
+Fri,7,10,22,6,18,20,,
+Sat,,,20,7,,,12,18
+Sun,,,0,0,,,,

@@ -24,14 +24,14 @@ use std::path::PathBuf;
 #[allow(dead_code)]
 pub type DailyData = HashMap<NaiveDate, Vec<Data>>;
 
-#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum Period {
     Peak,
     Standard, // automatically calculated
     OffPeak,
 }
 
-#[derive(Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Data {
     pub weekday: Weekday,    // Mon, Tue, Wed …
     pub date: NaiveDate,     // yyyy-mm-dd
