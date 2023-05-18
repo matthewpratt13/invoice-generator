@@ -1,4 +1,5 @@
 use crate::data::hours::Hours;
+use crate::data::schedule::Schedule;
 
 use chrono::Weekday;
 use csv::{ByteRecord, Reader};
@@ -7,17 +8,10 @@ use std::collections::HashMap;
 use std::error::Error;
 use std::fs::File;
 
-pub type DailySchedule = HashMap<
-    Weekday,
-    (
-        Option<Vec<u32>>,
-        Vec<u32>,
-        Option<Vec<u32>>,
-        Option<Vec<u32>>,
-    ),
->;
+// for convenience
+pub type DailySchedule = HashMap<Weekday, Schedule>;
 
-#[allow(dead_code)]
+#[allow(dead_code)] // remove rust-analyzer warnings
 // connect weekday to hours
 pub fn from_hours(mut rdr: Reader<File>) -> Result<DailySchedule, Box<dyn Error>> {
     let mut daily_schedule: DailySchedule = HashMap::new();
@@ -39,19 +33,14 @@ pub fn from_hours(mut rdr: Reader<File>) -> Result<DailySchedule, Box<dyn Error>
         let hours: Hours = byte_record.deserialize(Some(&headers))?;
         let weekday: Weekday = hours.weekday_enum()?;
 
-        let times: (
-            Option<Vec<u32>>,
-            Vec<u32>,
-            Option<Vec<u32>>,
-            Option<Vec<u32>>,
-        ) = (
+        let schedule = Schedule::new(
             hours.peak_hours()?,
             hours.off_peak_hours()?,
             hours.sec_peak_hours()?,
             hours.sec_off_peak_hours()?,
         );
 
-        daily_schedule.insert(weekday, times);
+        daily_schedule.insert(weekday, schedule);
     }
 
     Ok(daily_schedule)

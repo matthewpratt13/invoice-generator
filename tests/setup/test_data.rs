@@ -211,9 +211,7 @@ pub(crate) fn _dummy_entry() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 2, 17).unwrap();
 
     let total_produced = PowerTotals::from_periods(27.0, 160.0, 0.0);
-
     let to_grid = PowerTotals::from_periods(26.0, 158.0, 0.0);
-
     let total_consumed = PowerTotals::from_periods(1.0, 2.0, 0.0);
 
     let consumed = 3.0;
@@ -444,9 +442,7 @@ pub(crate) fn _dummy_entry_02() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 2, 18).unwrap();
 
     let total_produced = PowerTotals::from_periods(0.0, 32.0, 190.0);
-
     let to_grid = PowerTotals::from_periods(0.0, 30.0, 188.0);
-
     let total_consumed = PowerTotals::from_periods(0.0, 2.0, 2.0);
 
     let consumed = 4.0;
@@ -676,11 +672,7 @@ pub(crate) fn _dummy_entry_03() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 2, 19).unwrap();
 
     let total_produced = PowerTotals::from_periods(0.0, 0.0, 247.0);
-
     let to_grid = PowerTotals::from_periods(0.0, 0.0, 229.0);
-
-    // total_export = 229.14
-
     let total_consumed = PowerTotals::from_periods(0.0, 0.0, 18.0);
 
     let consumed = 18.0;
@@ -913,9 +905,6 @@ pub(crate) fn _dummy_entry_04() -> InvoiceEntry {
 
     let total_produced = PowerTotals::from_periods(35.0, 151.0, 0.0);
     let to_grid = PowerTotals::from_periods(23.0, 125.0, 0.0);
-
-    // total_export = 148.76
-
     let total_consumed = PowerTotals::from_periods(12.0, 26.0, 0.0);
 
     let consumed = 38.0;
@@ -1147,11 +1136,7 @@ pub(crate) fn _dummy_entry_05() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 2, 21).unwrap();
 
     let total_produced = PowerTotals::from_periods(0.0, 185.0, 0.0);
-
     let to_grid = PowerTotals::from_periods(0.0, 162.0, 0.0);
-
-    // total_export = 162.2
-
     let total_consumed = PowerTotals::from_periods(0.0, 23.0, 0.0);
 
     let consumed = 23.0;
@@ -1383,11 +1368,7 @@ pub(crate) fn _dummy_entry_06() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 2, 22).unwrap();
 
     let total_produced = PowerTotals::from_periods(34.0, 253.0, 0.0);
-
     let to_grid = PowerTotals::from_periods(21.0, 169.0, 0.0);
-
-    // total_export = 190.71
-
     let total_consumed = PowerTotals::from_periods(13.0, 84.0, 0.0);
 
     let consumed = 97.0;
@@ -1619,11 +1600,7 @@ pub(crate) fn _dummy_entry_07() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 2, 23).unwrap();
 
     let total_produced = PowerTotals::from_periods(32.0, 264.0, 0.0);
-
     let to_grid = PowerTotals::from_periods(7.0, 99.0, 0.0);
-
-    // total_export = 105.64
-
     let total_consumed = PowerTotals::from_periods(25.0, 165.0, 0.0);
 
     let consumed = 190.0;
@@ -1855,11 +1832,7 @@ pub(crate) fn _dummy_entry_08() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 3, 10).unwrap();
 
     let total_produced = PowerTotals::from_periods(65.0, 216.0, 0.0);
-
     let to_grid = PowerTotals::from_periods(0.0, 62.0, 0.0);
-
-    // total_export = 62.14
-
     let total_consumed = PowerTotals::from_periods(65.0, 154.0, 0.0);
 
     let consumed = 219.0;
@@ -2090,11 +2063,7 @@ pub(crate) fn _dummy_entry_09() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 3, 11).unwrap();
 
     let total_produced = PowerTotals::from_periods(0.0, 159.0, 211.0);
-
     let to_grid = PowerTotals::from_periods(0.0, 157.0, 210.0);
-
-    // total_export = 367.03
-
     let total_consumed = PowerTotals::from_periods(0.0, 2.0, 1.0);
 
     let consumed = 3.0;
@@ -2324,11 +2293,7 @@ pub(crate) fn _dummy_entry_10() -> InvoiceEntry {
     let date = NaiveDate::from_ymd_opt(2023, 3, 12).unwrap();
 
     let total_produced = PowerTotals::from_periods(0.0, 0.0, 268.0);
-
     let to_grid = PowerTotals::from_periods(0.0, 0.0, 262.0);
-
-    // total_export = 261.91
-
     let total_consumed = PowerTotals::from_periods(0.0, 0.0, 6.0);
 
     let consumed = 6.0;

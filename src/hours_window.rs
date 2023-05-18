@@ -1,8 +1,8 @@
+mod hours_grid;
 mod rows;
-mod schedule;
 
+use self::hours_grid::HoursGrid;
 use self::rows::Rows;
-use self::schedule::Schedule;
 
 use crate::hours_row::HoursRow;
 use crate::row_headers::RowHeaders;
@@ -44,12 +44,12 @@ impl HoursWindow {
             .row_headers
             .borrow()
             .clone()
-            .expect("unable to get `row_headers` (RowHeaders) for `self` (HoursWindow) – header labels (ListStore<Label>) do not exist)")
+            .expect("unable to get row headers – header labels do not exist)")
     }
 
     fn rows(&self) -> Rows {
         self.imp().rows.borrow().clone().expect(
-            "unable to get `rows` (Rows) for `self` (HoursWindow) – rows (HoursRow) do not exist",
+            "unable to get rows – hours rows do not exist",
         )
     }
 
@@ -80,7 +80,7 @@ impl HoursWindow {
         for y in 1..=8 {
             let child: Value = grid
                 .child_at(y, 0)
-                .expect("no child at that position in `self.grid()` (gtk::Grid)")
+                .expect("no child at that position")
                 .to_value();
 
             if let Ok(c) = child.get::<gtk::Label>() {
@@ -103,7 +103,7 @@ impl HoursWindow {
             for y in 1..=8 {
                 let child: Value = grid
                     .child_at(y, x)
-                    .expect("no child (Widget) at that position in `self.grid()` (Grid)")
+                    .expect("no child at that position")
                     .to_value();
 
                 if y == 0 {
@@ -138,13 +138,13 @@ impl HoursWindow {
 
                 let rows: Rows = window.rows();
                 let row_headers: RowHeaders = window.row_headers();
-                let schedule: Schedule = rows.to_schedule(row_headers).expect("unable to convert `rows` (Rows) to Schedule type for `self` (HoursWindow)");
+                let schedule: HoursGrid = rows.to_schedule(row_headers).expect("unable to convert `rows` to Schedule type");
 
                 let cancellable = gio::Cancellable::current();
 
                 file_dialog.save(Some(&window), cancellable.as_ref(), glib::clone!(@weak window => move |file| {
                     if let Ok(f) = file {
-                        let mut path: PathBuf = f.path().expect("`path` (PathBuf) for 'Save Hours' dialog (FileDialog) does not exist");
+                        let mut path: PathBuf = f.path().expect("path does not exist");
 
                         if path.as_path().extension() != Some(&OsString::from("csv")) {
                             path.set_extension("csv");
@@ -152,7 +152,7 @@ impl HoursWindow {
 
                         window.set_hours_file(path.clone());
 
-                        let mut wtr = csv::Writer::from_path(path).expect("unable to create `wtr` (Writer) from `path` (PathBuf) at `file` (gio::File) from 'Save Hours' dialog (FileDialog) for `self` (HoursWindow)");
+                        let mut wtr = csv::Writer::from_path(path).expect("unable to create CSV writer from `path` at `file`");
 
                         wtr.serialize(schedule.row_headers).expect("unable to serialize `row_headers`");
                         wtr.serialize(schedule.mon_hours).expect("unable to serialize `mon_hours`");
@@ -183,15 +183,9 @@ impl HoursWindow {
 
         for x in 1..=7 {
             for y in 3..=4 {
-                let missing_entry_msg: String = format!(
-                    "missing child (gtk::Entry) at row {} col {} in `self.grid` (Grid)",
-                    x, y
-                );
+                let msg: String = format!("missing entry at row {} col {})", x, y);
 
-                let entry: Value = grid
-                    .child_at(y, x)
-                    .expect(missing_entry_msg.as_str())
-                    .to_value();
+                let entry: Value = grid.child_at(y, x).expect(&msg).to_value();
 
                 if let Ok(e) = entry.get::<gtk::Entry>() {
                     let entry_text: GString = e.text();
@@ -218,15 +212,9 @@ impl HoursWindow {
 
         for x in 1..=7 {
             for y in 1..8 {
-                let missing_entry_msg: String = format!(
-                    "missing child (Entry) at row {} col {} in `self.grid` (Grid)",
-                    x, y
-                );
+                let msg: String = format!("missing entry at row {} col {}", x, y);
 
-                let entry: Value = grid
-                    .child_at(y, x)
-                    .expect(missing_entry_msg.as_str())
-                    .to_value();
+                let entry: Value = grid.child_at(y, x).expect(&msg).to_value();
 
                 if let Ok(e) = entry.get::<gtk::Entry>() {
                     let entry_text: GString = e.text();

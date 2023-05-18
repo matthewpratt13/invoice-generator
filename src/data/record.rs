@@ -3,7 +3,7 @@ use serde::Deserialize;
 
 use std::error::Error;
 
-#[derive(Clone, Deserialize, PartialEq)]
+#[derive(Clone, PartialEq, Deserialize)]
 pub(crate) struct Record {
     #[serde(rename = "Statistical Period")] // original date and time
     pub(crate) date_time_string: String,

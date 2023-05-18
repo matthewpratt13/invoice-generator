@@ -12,23 +12,27 @@ use std::ffi::OsString;
 use std::fs::{File, OpenOptions};
 use std::path::PathBuf;
 
-pub fn invoice_data(
-    xls_path: PathBuf,
-    hours_path: PathBuf,
-) -> Result<(Vec<InvoiceEntry>, InvoiceTotals), Box<dyn Error>> {
+pub struct InvoiceData {
+    pub invoice_entries: Vec<InvoiceEntry>,
+    pub invoice_totals: InvoiceTotals,
+}
+
+pub fn invoice_data(xls_path: PathBuf, hours_path: PathBuf) -> Result<InvoiceData, Box<dyn Error>> {
     let hours_rdr: csv::Reader<File> = self::read_file(&hours_path)?;
 
     // hours collected a new data type
-    let schedule: DailySchedule = daily_schedule::from_hours(hours_rdr)?;
+    let daily_schedule: DailySchedule = daily_schedule::from_hours(hours_rdr)?;
     // records collected into a HashMap mapping dates to data
-    let data: Vec<DailyData> = data::from_xls(&xls_path, &schedule)?;
+    let data: Vec<DailyData> = data::from_xls(&xls_path, &daily_schedule)?;
 
     // printed data types
     let invoice_entries: Vec<InvoiceEntry> = invoice_entry::from_daily_data(data)?;
     let invoice_totals: InvoiceTotals = invoice_entry::invoice_totals(&invoice_entries)?; // last row
 
-    let invoice_data: (Vec<InvoiceEntry>, InvoiceTotals) =
-        (invoice_entries.clone(), invoice_totals.clone());
+    let invoice_data = InvoiceData {
+        invoice_entries,
+        invoice_totals,
+    };
 
     Ok(invoice_data)
 }
@@ -43,14 +47,13 @@ pub fn read_file(path: &PathBuf) -> Result<csv::Reader<File>, std::io::Error> {
     Ok(rdr)
 }
 
-pub fn write_to_xls(
-    invoice_entries: &Vec<InvoiceEntry>,
-    invoice_totals: &InvoiceTotals,
-    mut path: PathBuf,
-) {
+pub fn write_to_xls(invoice_data: InvoiceData, mut path: PathBuf) {
     if path.as_path().extension() != Some(&OsString::from("xlsx")) {
         path.set_extension("xlsx");
     }
+
+    let invoice_entries: Vec<InvoiceEntry> = invoice_data.invoice_entries;
+    let invoice_totals: InvoiceTotals = invoice_data.invoice_totals;
 
     let file: &str = path.as_path().to_str().expect("invalid path");
 

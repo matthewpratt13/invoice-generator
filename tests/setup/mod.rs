@@ -5,6 +5,7 @@ pub use invoice_generator::data::{
     invoice_entry::{self, InvoiceEntry},
     invoice_totals::{self, InvoiceTotals},
     power_totals::PowerTotals,
+    schedule::Schedule,
 };
 
 pub use chrono::{NaiveDate, Weekday};

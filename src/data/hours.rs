@@ -1,9 +1,9 @@
 use chrono::Weekday;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 use std::error::Error;
 
-#[derive(Clone, Deserialize, Serialize)]
+#[derive(Clone, Deserialize)]
 pub struct Hours {
     #[serde(rename = "Weekday")]
     weekday_string: String,
@@ -66,7 +66,7 @@ impl Hours {
         if let Ok(d) = weekday_string.parse::<Weekday>() {
             Ok(d)
         } else {
-            Err(From::from(msg.as_str()))
+            Err(From::from(msg))
         }
     }
 
@@ -75,9 +75,9 @@ impl Hours {
         let peak_end: Option<u32> = self.peak_end;
 
         let period = "peak";
-        let day: String = self.weekday_enum()?.to_string();
+        let weekday: Weekday = self.weekday_enum()?;
 
-        let peak_hours: Option<Vec<u32>> = hours(peak_start, peak_end, period, &day)?;
+        let peak_hours: Option<Vec<u32>> = hours(peak_start, peak_end, period, weekday)?;
         Ok(peak_hours)
     }
 
@@ -87,10 +87,10 @@ impl Hours {
         let off_peak_end: Option<u32> = Some(self.off_peak_end);
 
         let period = "off_peak";
-        let day: String = self.weekday_enum()?.to_string();
+        let weekday: Weekday = self.weekday_enum()?;
 
         let off_peak_hours: Vec<u32> =
-            hours(off_peak_start, off_peak_end, period, day.as_str())?.unwrap();
+            hours(off_peak_start, off_peak_end, period, weekday)?.unwrap();
 
         Ok(off_peak_hours)
     }
@@ -100,14 +100,10 @@ impl Hours {
         let secondary_peak_end: Option<u32> = self.secondary_peak_end;
 
         let period = "secondary_peak";
-        let day: String = format!("{}", self.weekday_enum()?);
+        let weekday: Weekday = self.weekday_enum()?;
 
-        let secondary_peak_hours: Option<Vec<u32>> = hours(
-            secondary_peak_start,
-            secondary_peak_end,
-            period,
-            day.as_str(),
-        )?;
+        let secondary_peak_hours: Option<Vec<u32>> =
+            hours(secondary_peak_start, secondary_peak_end, period, weekday)?;
 
         Ok(secondary_peak_hours)
     }
@@ -117,13 +113,13 @@ impl Hours {
         let secondary_off_peak_end: Option<u32> = self.secondary_off_peak_end;
 
         let period = "secondary_off_peak";
-        let day: String = format!("{}", self.weekday_enum()?);
+        let weekday: Weekday = self.weekday_enum()?;
 
         let secondary_off_peak_hours: Option<Vec<u32>> = hours(
             secondary_off_peak_start,
             secondary_off_peak_end,
             period,
-            day.as_str(),
+            weekday,
         )?;
 
         Ok(secondary_off_peak_hours)
@@ -135,20 +131,20 @@ fn hours(
     start: Option<u32>,
     end: Option<u32>,
     period: &str,
-    day: &str,
+    weekday: Weekday,
 ) -> Result<Option<Vec<u32>>, Box<dyn Error>> {
-    let msg: String = format!("Format error: invalid {}_start and/or {}_end hour value in schedule for {}. Hours must be within range 0–23 (inclusive)", period, period, day);
+    let msg: String = format!("Format error: invalid {}_start and/or {}_end hour value in schedule for {}. Hours must be within range 0–23 (inclusive)", period, period, weekday);
 
     let mut hours: Vec<u32> = Vec::new();
 
     if let Some(s) = start {
         if s > 23 {
-            return Err(From::from(msg.as_str()));
+            return Err(From::from(msg));
         }
 
         if let Some(e) = end {
             if e > 23 {
-                return Err(From::from(msg.as_str()));
+                return Err(From::from(msg));
             } else {
                 hours.push(s);
                 hours.push(e);

@@ -1,8 +1,8 @@
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 use super::power_totals::PowerTotals;
 
-#[derive(Copy, Clone, Deserialize, Serialize)]
+#[derive(Copy, Clone, Deserialize)]
 pub struct InvoiceTotals {
     total_produced: PowerTotals, // inverter yield per period
     to_grid: PowerTotals,        // export per period
@@ -11,7 +11,7 @@ pub struct InvoiceTotals {
     produced: f64,               // sum of `total_consumed`
 }
 
-#[allow(dead_code)]
+#[allow(dead_code)] // remove rust-analyzer warnings
 impl InvoiceTotals {
     pub fn from_power(
         total_produced: PowerTotals,
@@ -29,17 +29,17 @@ impl InvoiceTotals {
         }
     }
 
-    // { peak_kwh, standard_kwh, off_peak_kwh }
+    // PowerTotals = { peak_kwh, standard_kwh, off_peak_kwh }
     pub fn total_produced(&self) -> PowerTotals {
         self.total_produced
     }
 
-    // { peak_kwh, standard_kwh, off_peak_kwh }
+    // PowerTotals = { peak_kwh, standard_kwh, off_peak_kwh }
     pub fn to_grid(&self) -> PowerTotals {
         self.to_grid
     }
 
-    // { peak_kwh, standard_kwh, off_peak_kwh }
+    // PowerTotals = { peak_kwh, standard_kwh, off_peak_kwh }
     pub fn total_consumed(&self) -> PowerTotals {
         self.total_consumed
     }

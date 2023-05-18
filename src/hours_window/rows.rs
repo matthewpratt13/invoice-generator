@@ -1,4 +1,4 @@
-use super::schedule::Schedule;
+use super::hours_grid::HoursGrid;
 use super::{HoursRow, RowHeaders};
 
 use adw::prelude::*;
@@ -18,22 +18,22 @@ pub struct Rows {
 
 impl Rows {
     pub fn new(hours_rows: Vec<HoursRow>) -> Self {
-        let mon_row: &HoursRow = &hours_rows[0];
-        let tue_row: &HoursRow = &hours_rows[1];
-        let wed_row: &HoursRow = &hours_rows[2];
-        let thu_row: &HoursRow = &hours_rows[3];
-        let fri_row: &HoursRow = &hours_rows[4];
-        let sat_row: &HoursRow = &hours_rows[5];
-        let sun_row: &HoursRow = &hours_rows[6];
+        let mon_row: HoursRow = hours_rows[0].clone();
+        let tue_row: HoursRow = hours_rows[1].clone();
+        let wed_row: HoursRow = hours_rows[2].clone();
+        let thu_row: HoursRow = hours_rows[3].clone();
+        let fri_row: HoursRow = hours_rows[4].clone();
+        let sat_row: HoursRow = hours_rows[5].clone();
+        let sun_row: HoursRow = hours_rows[6].clone();
 
         Self {
-            mon_row: mon_row.clone(),
-            tue_row: tue_row.clone(),
-            wed_row: wed_row.clone(),
-            thu_row: thu_row.clone(),
-            fri_row: fri_row.clone(),
-            sat_row: sat_row.clone(),
-            sun_row: sun_row.clone(),
+            mon_row,
+            tue_row,
+            wed_row,
+            thu_row,
+            fri_row,
+            sat_row,
+            sun_row,
         }
     }
 
@@ -51,7 +51,7 @@ impl Rows {
         hours_rows
     }
 
-    pub fn to_schedule(&self, row_headers: RowHeaders) -> Result<Schedule, Box<dyn Error>> {
+    pub fn to_schedule(&self, row_headers: RowHeaders) -> Result<HoursGrid, Box<dyn Error>> {
         let row_headers_strings: Vec<String> = row_headers.to_headers_strings();
 
         let hours_rows: Vec<HoursRow> = self.hours_rows();
@@ -74,6 +74,6 @@ impl Rows {
             rows_strings.push(Some(row));
         }
 
-        Ok(Schedule::new(row_headers_strings, rows_strings))
+        Ok(HoursGrid::new(row_headers_strings, rows_strings))
     }
 }

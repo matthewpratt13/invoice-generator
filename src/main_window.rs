@@ -1,4 +1,5 @@
 use crate::hours_window::HoursWindow;
+use invoice_generator::InvoiceData;
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
@@ -43,7 +44,7 @@ impl MainWindow {
         if let Some(p) = hours_window.hours_file() {
             self.imp().hours_file_entry.set_text(
                 p.to_str()
-                    .expect("unable to set `enter_hours_label` (&str) for input `hours_window` (HoursWindow) – invalid path"),
+                    .expect("unable to set `enter_hours_label` – invalid path"),
             );
         }
 
@@ -114,7 +115,7 @@ impl MainWindow {
 
                 file_dialog.open(Some(&window), cancellable, glib::clone!(@strong window=> move |file| {
                     if let Ok(f) = file {
-                        let path: PathBuf = f.path().expect("`path` (PathBuf) for 'Open Records' dialog (FileDialog) does not exist");
+                        let path: PathBuf = f.path().expect("'Open Records' path does not exist");
                         window.set_entry_text(&EntryType::Records, path);
                     }
 
@@ -161,7 +162,7 @@ impl MainWindow {
 
                 file_dialog.open(Some(&window), cancellable, glib::clone!(@strong  window=> move |file| {
                     if let Ok(f) = file {
-                        let path: PathBuf = f.path().expect("`path` (PathBuf) for 'Open Hours' dialog (FileDialog) does not exist");
+                        let path: PathBuf = f.path().expect("'Open Hours' path does not exist");
                         window.set_entry_text(&EntryType::Hours, path);
                     }
 
@@ -192,18 +193,15 @@ impl MainWindow {
                     let xls_path = PathBuf::from(records);
                     let hours_path = PathBuf::from(hours);
 
-                    let invoice_data = invoice_generator::invoice_data(xls_path, hours_path).expect("unable to generate entries");
-
-                    let invoice_entries = invoice_data.0;
-                    let invoice_totals = invoice_data.1;
+                    let invoice_data: InvoiceData = invoice_generator::invoice_data(xls_path, hours_path).expect("unable to generate entries – invalid data");
 
                     let file_dialog = gtk::FileDialog::builder().title("Save Entries").modal(true).build();
                     let cancellable = gio::Cancellable::current();
 
                     file_dialog.save(Some(&window), cancellable.as_ref(), glib::clone!(@weak window => move |file| {
                         if let Ok(f) = file {
-                            let path = f.path().expect("invalid path");
-                            invoice_generator::write_to_xls(&invoice_entries, &invoice_totals, path);
+                            let path: PathBuf = f.path().expect("invalid path");
+                            invoice_generator::write_to_xls(invoice_data, path);
 
                             let msg_dialog = adw::MessageDialog::builder().heading("Success").body("Invoice generated").deletable(true).modal(true).destroy_with_parent(true).transient_for(&window).build();
                             msg_dialog.add_response("close-response", "Close");

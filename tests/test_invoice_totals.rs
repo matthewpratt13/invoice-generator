@@ -6,16 +6,16 @@ use crate::setup::*;
 
 #[test]
 fn it_calculates_invoice_totals() -> Result<(), Box<dyn Error>> {
-    let entry_01 = test_data::_dummy_entry();
-    let entry_02 = test_data::_dummy_entry_02();
-    let entry_03 = test_data::_dummy_entry_03();
-    let entry_04 = test_data::_dummy_entry_04();
-    let entry_05 = test_data::_dummy_entry_05();
-    let entry_06 = test_data::_dummy_entry_06();
-    let entry_07 = test_data::_dummy_entry_07();
-    let entry_08 = test_data::_dummy_entry_08();
-    let entry_09 = test_data::_dummy_entry_09();
-    let entry_10 = test_data::_dummy_entry_10();
+    let entry_01: InvoiceEntry = test_data::_dummy_entry();
+    let entry_02: InvoiceEntry = test_data::_dummy_entry_02();
+    let entry_03: InvoiceEntry = test_data::_dummy_entry_03();
+    let entry_04: InvoiceEntry = test_data::_dummy_entry_04();
+    let entry_05: InvoiceEntry = test_data::_dummy_entry_05();
+    let entry_06: InvoiceEntry = test_data::_dummy_entry_06();
+    let entry_07: InvoiceEntry = test_data::_dummy_entry_07();
+    let entry_08: InvoiceEntry = test_data::_dummy_entry_08();
+    let entry_09: InvoiceEntry = test_data::_dummy_entry_09();
+    let entry_10: InvoiceEntry = test_data::_dummy_entry_10();
 
     let test_entries: Vec<InvoiceEntry> = vec![
         entry_01, entry_02, entry_03, entry_04, entry_05, entry_06, entry_07, entry_08, entry_09,
@@ -27,6 +27,7 @@ fn it_calculates_invoice_totals() -> Result<(), Box<dyn Error>> {
     let total_produced: PowerTotals = invoice_totals.total_produced();
     let to_grid: PowerTotals = invoice_totals.to_grid();
     let total_consumed: PowerTotals = invoice_totals.total_consumed();
+    
     let consumed: f64 = invoice_totals.consumed();
     let produced: f64 = invoice_totals.produced();
 
