@@ -30,6 +30,8 @@ impl PowerTotals {
         }
     }
 
+    // getters:
+
     pub fn peak_kwh(&self) -> f64 {
         self.peak_kwh
     }

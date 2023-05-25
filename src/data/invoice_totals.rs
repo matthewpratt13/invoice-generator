@@ -29,17 +29,19 @@ impl InvoiceTotals {
         }
     }
 
-    // PowerTotals = { peak_kwh, standard_kwh, off_peak_kwh }
+    // getters:
+
+    // return { peak_kwh, standard_kwh, off_peak_kwh }
     pub fn total_produced(&self) -> PowerTotals {
         self.total_produced
     }
 
-    // PowerTotals = { peak_kwh, standard_kwh, off_peak_kwh }
+    // return { peak_kwh, standard_kwh, off_peak_kwh }
     pub fn to_grid(&self) -> PowerTotals {
         self.to_grid
     }
 
-    // PowerTotals = { peak_kwh, standard_kwh, off_peak_kwh }
+    // return { peak_kwh, standard_kwh, off_peak_kwh }
     pub fn total_consumed(&self) -> PowerTotals {
         self.total_consumed
     }

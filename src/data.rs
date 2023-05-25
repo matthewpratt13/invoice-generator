@@ -13,7 +13,7 @@ use self::schedule::Schedule;
 
 use calamine::*; // to work with excel files
 
-// to work with date and time value types (instead of `&str`)
+// to work with date and time value types (instead of string references)
 use chrono::{Datelike, NaiveDate, Timelike, Weekday};
 
 use itertools::Itertools; // to iterate through, map and sort data
@@ -36,7 +36,7 @@ pub enum Period {
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Data {
-    pub weekday: Weekday,    // Mon, Tue, Wed …
+    pub weekday: Weekday,    // Mon, Tue, Wed … (enum)
     pub date: NaiveDate,     // yyyy-mm-dd
     pub hour: u32,           // 0 is midnight … 23 is 11 p.m.
     pub inverter_yield: f64, // summed to `total_produced` in `invoice_entry.rs`
@@ -49,15 +49,14 @@ impl Data {
     fn build(
         weekday: Weekday,
         record: Record, // raw data from original summaries
-        // Weekday -> ( Vec<start_hour, end_hour> per period )
-        daily_schedule: DailySchedule, // hour ranges for each day
+        daily_schedule: DailySchedule, // { Weekday -> Schedule }
     ) -> Result<Self, Box<dyn Error>> {
         let date: NaiveDate = record.naive_date_time()?.date();
         let hour: u32 = record.naive_date_time()?.hour();
         let inverter_yield: f64 = record.inverter_yield();
         let export: f64 = record.export();
 
-        let period: Period = self::period(hour, weekday, &daily_schedule)?;
+        let period: Period = period(hour, weekday, &daily_schedule)?;
 
         Ok(Self {
             weekday,
@@ -126,7 +125,7 @@ pub fn from_xls(
     Ok(days)
 }
 
-// determine the period (Peak, Standard, Off-peak) for a given hour on a given day,
+// determine period (Peak, Standard, OffPeak) for a given hour on a given day,
 // according to the schedule
 fn period(
     hour: u32,

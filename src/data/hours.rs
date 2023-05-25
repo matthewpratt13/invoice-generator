@@ -70,6 +70,8 @@ impl Hours {
         }
     }
 
+    // getters:
+
     pub(crate) fn peak_hours(&self) -> Result<Option<Vec<u32>>, Box<dyn Error>> {
         let peak_start: Option<u32> = self.peak_start;
         let peak_end: Option<u32> = self.peak_end;
@@ -81,7 +83,7 @@ impl Hours {
         Ok(peak_hours)
     }
 
-    // return vector with off peak start and end hours
+    // return vector with off-peak start and end hours
     pub(crate) fn off_peak_hours(&self) -> Result<Vec<u32>, Box<dyn Error>> {
         let off_peak_start: Option<u32> = Some(self.off_peak_start);
         let off_peak_end: Option<u32> = Some(self.off_peak_end);
@@ -126,7 +128,7 @@ impl Hours {
     }
 }
 
-// check if hours valid and return vector with start and end hours
+// check if hours are valid and return vector with start and end hours
 fn hours(
     start: Option<u32>,
     end: Option<u32>,
