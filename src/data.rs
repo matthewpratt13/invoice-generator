@@ -48,7 +48,7 @@ pub struct Data {
 impl Data {
     fn build(
         weekday: Weekday,
-        record: Record, // raw data from original summaries
+        record: Record,                // raw data from original summaries
         daily_schedule: DailySchedule, // { Weekday -> Schedule }
     ) -> Result<Self, Box<dyn Error>> {
         let date: NaiveDate = record.naive_date_time()?.date();
@@ -84,19 +84,20 @@ pub fn from_xls(
         .worksheet_range("Sheet1")
         .ok_or(calamine::Error::Msg("cannot find 'Sheet1'"))??;
 
-    let start: &DataType = range
-        .get_value(range.start().ok_or("missing start value")?)
-        .ok_or("unable to get start value")?;
+    let start_index: (u32, u32) = range
+        .start()
+        .ok_or("unable to get workbook start cell index")?;
 
     let end_index: (u32, u32) = range.end().ok_or("unable to get workbook end cell index")?;
 
-    let new_start_index: (u32, u32) = (1, 0); // A2
+    let start_value: &DataType = range
+        .get_value(start_index)
+        .ok_or("unable to get start value")?;
 
-    // skip unwanted header / title
-    if let Some(t) = start.get_string() {
-        if t != "Statistical Period" {
-            range = range.range(new_start_index, end_index);
-        }
+    let new_start_index: (u32, u32) = (start_index.0 + 1, start_index.1); // A2
+
+    if start_value.to_string() != "Statistical Period" {
+        range = range.range(new_start_index, end_index);
     }
 
     let iter: RangeDeserializer<DataType, Record> = RangeDeserializerBuilder::with_headers(&[
@@ -113,6 +114,7 @@ pub fn from_xls(
         let data = Data::build(weekday, record, daily_schedule.clone())?;
 
         data_vec.push(data);
+        println!("{:?}", &data_vec);
     }
 
     let mut days: Vec<DailyData> = Vec::new();

@@ -12,6 +12,7 @@ use std::ffi::OsString;
 use std::fs::{File, OpenOptions};
 use std::path::PathBuf;
 
+#[derive(Debug, Clone)]
 pub struct InvoiceData {
     pub invoice_entries: Vec<InvoiceEntry>,
     pub invoice_totals: InvoiceTotals,

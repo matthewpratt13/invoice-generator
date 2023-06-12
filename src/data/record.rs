@@ -1,20 +1,20 @@
 use chrono::NaiveDateTime;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use std::error::Error;
 
-#[derive(Clone, PartialEq, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 pub(crate) struct Record {
     #[serde(rename = "Statistical Period")] // original date and time
-    pub(crate) date_time_string: String,
+    date_time_string: String,
 
     #[serde(rename = " Inverter Yield (kWh)")] // original heading (has initial space)
     #[serde(deserialize_with = "csv::invalid_option")]
-    pub(crate) inverter_yield: Option<f64>, // produced
+    inverter_yield: Option<f64>, // produced
 
-    #[serde(rename = "Export (kWh)")] // original heading
+    #[serde(rename = "Export (kWh)", default)] // original heading
     #[serde(deserialize_with = "csv::invalid_option")]
-    pub(crate) export: Option<f64>, // to grid
+    export: Option<f64>, // to grid
 }
 
 impl Record {
@@ -35,7 +35,6 @@ impl Record {
         let inverter_yield: f64 = self.inverter_yield.unwrap_or_else(|| 0.0);
         inverter_yield
     }
-
     // get export or return if value in None
     pub(crate) fn export(&self) -> f64 {
         let export: f64 = self.export.unwrap_or_else(|| 0.0);

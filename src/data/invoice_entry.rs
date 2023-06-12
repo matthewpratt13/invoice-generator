@@ -18,7 +18,7 @@ enum Parameter {
     Export,
 }
 
-#[derive(Copy, Clone, Deserialize)]
+#[derive(Debug, Copy, Clone, Deserialize)]
 pub struct InvoiceEntry {
     weekday: Weekday,            // Mon, Tue, Wed … (enum)
     date: NaiveDate,             // yyyy-mm-dd

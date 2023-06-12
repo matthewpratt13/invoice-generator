@@ -2,7 +2,7 @@ use serde::Deserialize;
 
 use super::power_totals::PowerTotals;
 
-#[derive(Copy, Clone, Deserialize)]
+#[derive(Debug, Copy, Clone, Deserialize)]
 pub struct InvoiceTotals {
     total_produced: PowerTotals, // inverter yield per period
     to_grid: PowerTotals,        // export per period

@@ -35,27 +35,18 @@ fn build_ui(app: &adw::Application) {
 }
 
 // uncomment to run back end only:
-/*
-use invoice_generator::{InvoiceEntry, InvoiceTotals};
-use std::{error::Error, path::PathBuf};
 
-fn main() -> Result<(), Box<dyn Error>> {
-    let xls_path = PathBuf::from("<path-to-summaries>");
-    let hours_path = PathBuf::from("<path-to-hours>");
+// use std::{error::Error, path::PathBuf};
 
-    let file_path = PathBuf::from("<path-to-write-to>");
+// fn main() -> Result<(), Box<dyn Error>> {
+//     let xls_path = PathBuf::from("<path-to-summaries>");
+//     let hours_path = PathBuf::from("res/hours.csv");
 
-    let invoice_data = invoice_generator::invoice_data(xls_path, hours_path)?;
+//     let file_path = PathBuf::from("<path-to-invoice>");
 
-    let invoice_entries: Vec<InvoiceEntry> = invoice_data.0;
-    let invoice_totals: InvoiceTotals = invoice_data.1;
+//     let invoice_data = invoice_generator::invoice_data(xls_path, hours_path)?;
 
-    invoice_generator::write_to_xls(&invoice_entries, &invoice_totals, file_path);
+//     invoice_generator::write_to_xls(invoice_data, file_path);
 
-    println!(
-        "invoice_entries: {:#.2?}, invoice_totals {:#.2?}",
-        &invoice_entries, &invoice_totals
-    );
-
-    Ok(())
-} */
+//     Ok(())
+// }
